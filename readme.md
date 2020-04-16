@@ -44,7 +44,7 @@ You can think of React as an event-driven state machine, or a machine that churn
 
  *Q: What do we mean by a React component's "state"?*
 
-The object properties of a component (`this.state`) that change as the application runs, as opposed to `this.props`, which are immutable.
+The object properties of a component (`state`) that change as the application runs, as opposed to `props`, which are immutable.
 
 
 ### State and Rendering
