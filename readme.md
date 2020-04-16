@@ -76,11 +76,13 @@ npm start
 ```
 You should be greeted with a Hello message. 
 
-Now let's install a handy tool. [React Dev Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+Now let's install a handy tool.
+1. Chrome: [React Dev Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+2. Firefox: [React Dev Tools](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)
 
 At the moment we will see our `Hello` component inside of google chrome's development tools under the React tab. (We can even see our props/state!)
 
-Now let's create a new folder components and create 2 new components (Post and Comment) inside that folder.
+Now let's create two new component files inside the `src` folder.
 
 Your structure should look like this:
 
@@ -103,7 +105,7 @@ blog-app
 
 Let's throw some info into those files! 
 
-**Post.js**
+**src/Post.js**
 
 ```js
 import React from 'react';
@@ -132,10 +134,12 @@ export default Post;
 
 Let's break down the above code. We created a Post component that takes in the props: title, author, body, and an array of comments. For each comment inside of *this.props.comments* it will create a Comment component. Since this file requires the Comment component let's update that next. 
 
+**src/Comment.js**
+
 ```js
 import React from 'react';
 
-const comment = (props) => {
+const Comment = (props) => {
     return(
         <div>
             <p>{props.message}</p>
@@ -143,9 +147,10 @@ const comment = (props) => {
     )
 }
 
-export default comment;
+export default Comment;
 ```
-Awesome! Now to update our `index.js` to render out the Post Component.
+
+Awesome! Now update `index.js` to render out the Post component.
 
 ```js
 import React from 'react';
@@ -186,7 +191,7 @@ You should see this now:
 
 ![example react one](./images/blog-app1.png)
 
-So far we have dealt with only props to pass information from one component to another. But, what if we wanted data to change within a component? Time for State! Before we move forward now would be a good time to learn about *Class Component*.
+So far we have dealt with only props to pass information from one component to another. But, what if we wanted data to change within a component? Time for State! Before we move forward now would be a good time to learn about *Class-based components*.
 
 However easy *functional components* are to read, debug or test but they do not have state or lifecycle methods. Both extremely important in React, which is essentially why we need a class component.
 
@@ -212,6 +217,7 @@ class Welcome extends React.Component {
   }
 }
 ```
+
 Notice the use of `this` to call the property name. Can you think of any reason why we have to use `this` keyword here?
 
 
