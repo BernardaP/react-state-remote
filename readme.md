@@ -17,13 +17,15 @@ In this lesson we will be looking at how data is managed within a React applicat
 
 ## State
 
-The limitation of props is that we can't change the data from within the component. The data that we can change within a component is called **[state](https://facebook.github.io/react/docs/state-and-lifecycle.html)**. We haven't talked about state much, but you have worked with it before. Just think about if you were to develop a game. Here are some examples:
+The limitation of props is that they are immutable; we can't change the data from within the component. The data that we can change within a component is called **[state](https://facebook.github.io/react/docs/state-and-lifecycle.html)**. 
+
+We haven't talked about state much, but you have worked with it before. Think back to your game project. How did you track the score of the game, the current turn, whether or not the game had ended or not. These are all examples of state.
 
 * **Trivia**: what is the current score, what card is currently displayed to the user, is the user's input correct or incorrect?
 * **Simon**: what order of buttons did the user push, what is the order of buttons they were supposed to push, what round or level are they on?
-* **Tower of Hanoi**: how many discs are in each tower, how many moves has the user made?
+* **Blackjack**: what is the score of the player's hand? The dealer's? How do we award money to a winning hand?
 
-We can figure out the `state` of a turn-based game because there is a clear idea of a beginning and end and states that reflect progress from one turn to the next turn: what flash card is the user on, what buttons do they need to push, how are the discs distributed among the three towers.
+We can figure out the `state` of a turn-based game because there is a clear idea of a beginning and end and states that reflect progress from one turn to the next turn: what flash card is the user on, what buttons do they need to push, how the cards are distributed among the two players.
 
 
 *Q: So we know an application can have different states. But how do we transition in between them?*
@@ -33,13 +35,15 @@ Events! (or user actions)
 
 ### F.I.R.S.T. Principles and State
 
-The aim of the F.I.R.S.T. principles is to create a sane approach to breaking down not just a user-interface, but also an application's data so it is easy-to-manage chunks of data and the components that render them.
+The aim of the F.I.R.S.T. principles is to create a sane approach to breaking down not just a user interface, but also an application's data. Following the F.I.R.S.T principles should lead you to manageable, focused components that work with a specific set of data: the **props** we pass to those components and the **state** of the component itself.
 
 *Each component is concerned only with the data relevant to its purpose*.
 
 For your first project, you had to do that manually. Manually write event listeners that would update state stored in global scope and then update your UI by manually updating individual DOM nodes.
 
-You can think of React as an event-driven state machine, or a machine that churns out new states as a result of user interactions. A React application receives input through user interactions (event listeners) and outputs a UI that reflects a brand new state (new cards, fewer or more chips, etc).
+You can think of React as an event-driven state machine, in other words, a react app churns out new states as a result of user interactions. 
+
+A React application receives input through user interactions (event listeners) and outputs a UI that reflects a brand new state (new cards, fewer or more chips, etc).
 
 
  *Q: What do we mean by a React component's "state"?*
@@ -49,14 +53,15 @@ The object properties of a component (`state`) that change as the application ru
 
 ### State and Rendering
 
-Before moving on to build our application, it's worth mentioning another aspect of component `state`: when it changes our components re-render:
+Before moving on to build our application, it's worth mentioning another aspect of `state`: when it changes our components re-render.
 
 ![react component image](./images/react-component-state-update.png)
 
-Our UI gets updated when state changes. The user takes some action, like submitting information via a form, and the component holding that form has a `state` that is updated with the value of the user's input.
+Our UI updates when state changes. The user takes some action, like submitting information via a form, and the component holding that form has a `state` that is updated with the value of the user's input.
 
 ### Props vs State
-Just a recap, both *props* and *state* are plain JS objects that hold information, but when updated re-renders the component. However they are different in one important way, `props` get passed to the component whereas `state` is managed within a component.
+
+Just a recap, both **props** and **state** are plain JS objects that hold information, but when updated re-renders the component. However they are different in one important way, `props` get passed to the component whereas `state` is managed within a component.
 
 ## Let's build something together.
 
