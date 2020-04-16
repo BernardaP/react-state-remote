@@ -191,26 +191,32 @@ You should see this now:
 
 ![example react one](./images/blog-app1.png)
 
-So far we have dealt with only props to pass information from one component to another. But, what if we wanted data to change within a component? Time for State! Before we move forward now would be a good time to learn about *Class-based components*.
+So far we have used props to pass information from one component to another. But, what if we wanted data to change within a component? Props are immutable and as such can't be changed while the app is running. Time for `state`!
 
-However easy *functional components* are to read, debug or test but they do not have state or lifecycle methods. Both extremely important in React, which is essentially why we need a class component.
+Unfortunately, introducing `state` means exposing the limitations of our functional components and learning about a new syntax for defining components called "Class-based components".
+
+However easy *functional components* are to read, debug or test but they do not have state or lifecycle methods. Class-based components do. Both of these new concepts (state, and lifecycle methods) are important in React development, which is why we need to learn how to write a class component.
 
 ### Functional vs Class Component
 
 #### Syntax
-One of the obvious difference is the syntax,
+One of the obvious differences between these types of components is the syntax.
 
-Functional component as we have seen before is just like writing a js function with an access to `props`.
+Functional components, as the name implies, are just like a regular js function with access to a `props` argument.
 
 ```
+import React from 'react';
+
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 ```
 
-Class component is like the name suggests is written as a class and inherits it's properties from `React.Component`.
+Class components, again as the name implies, are written in JS class syntax and inherits properties and a lot of functionality from `React.Component`.
 
 ```
+import React from 'react';
+
 class Welcome extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
@@ -218,7 +224,7 @@ class Welcome extends React.Component {
 }
 ```
 
-Notice the use of `this` to call the property name. Can you think of any reason why we have to use `this` keyword here?
+Notice the use of `this` to call the property name. Why do we have to use the `this` keyword here?
 
 #### State
 
@@ -228,21 +234,19 @@ Class components are **stateful**, state can be accessed and updated.
 
 > Technically, this has changed post React 16.8 release. We now have something called "hooks" for changing the state in a functional component. But for simplicity sake we will say that state cannot be changed in functional component.
 
-#### Lifecycle
+#### Lifecycle Methods
 
-Another feature which you cannot use in functional components are lifecycle methods. The reason is the same like for state, all lifecycle hooks are coming from the `React.Component` which you extend from in class components.
+Another feature that cannot be used in functional components are "lifecycle methods". Lifecycle methods run at specific times in the rendering, mounting, and unmounting phases of a component's life. Functional components don't have access to these methods for the same reason that they don't have access to state: all lifecycle methods are inherited from `React.Component` through the extend syntax.
 
-So if you need lifecycle hooks you should probably use a class component.
+So,if you need lifecycle methods you need a class component.
 
 > This has also changed post React 16.8 hooks update.
 
-### Code Along: Adding a state
+### Code Along: Adding a state object
 
-As an example we will be adding "Karma" to our comments. (This will make sense in a moment I promise.)
+We're going to add "Karma" to our comments in order to show the user which comments are positive and which are negative by changing their colour.
 
-Let's first change our functional `comment` component to a class component. Remember we need class component to access state in it.
-
-We need to extend from `Component` to make `Comment` class a React component.
+We need a class-based component to add and access state. Let's first change the syntax of our functional `Comment` component to the Class-based alternative.
 
 ```js
 import React, {Component} from 'react'
@@ -254,24 +258,25 @@ class Comment extends Component {
 export default Comment
 ```
 
-Since it's a JS class instead of directly returning from the class(which you know is not possible), we will use `render()` to return JSX.
+Since this is a class, instead of adding a `return` (which is not possible), we will use `render()` to return JSX when this component is invoked.
 
 ```js
 import React, {Component} from 'react'
 
 class Comment extends Component {
-	render () {
-	    return (
-	      <div>
-	        <p>{this.props.message}</p>
-	      </div>
-	    )
+  render () {
+    return (
+      <div>
+	<p>{this.props.message}</p>
+      </div>
+    )
   }
 }
 
 export default Comment
 ```
->`this` keyword is used to access `message` property sent from `Post`
+
+> `this` keyword is used to access `message` property sent from `Post`
 
 Let's set state inside of our comments. And we will use the `karma` state to set class name in `div`
 
@@ -294,11 +299,12 @@ class Comment extends Component {
 
 export default Comment
 ```
+
 As you can see `state` is an object with key-value pair.
 
-Inside our dev tools we will now see that by default we have set the state of karma to 'good' for all comments. We also used this state to declare a classname attached to our comment component. Now that we have a set state we can now create a method built into our component to update the state.
+Inside our React Developer Tools we will now see that by default we have set the state of karma to 'good' for all comments. We also used this state to declare a classname attached to our comment component. Now that we have a set state we can now create a method built into our component to update the state.
 
-We will be creating a ChangeKarma method to update our state and a button that will call the method. Simply the function checks the state and toggles it depending on what it is. While we are at it, we will also add some gifs.
+We will be creating a `changeKarma` method to update our `state` and a button that will call trigger that update by calling the new method. Simply put, the function checks the state and toggles it depending on the current value. While we're at it, let's add some gifs.
 
 ```js
 import React, {Component} from 'react'
@@ -336,11 +342,12 @@ class Comment extends Component {
 
 export default Comment
 ```
->Notice the use of ternary operator to change the gif in the `img` tag
+
+> Notice the use of ternary operator to change the gif in the `img` tag
 
 So onClick the button will run the method changeKarma. 
 
-Even though our class is changing on click of the button, nothing really is happening on the screen. So let's add bit of styling in `index.css` to see some changes.
+Even though our `className` is changing on click of the button, nothing really is happens on the screen. So let's add a bit of styling in `index.css` to see some changes.
 
 ```
 .good,
@@ -349,10 +356,12 @@ Even though our class is changing on click of the button, nothing really is happ
 }
 
 .good img {
+  border: 5px solid green;
   width: 200px;
 }
 
 .bad img {
+  border: 5px solid red;
   width: 200px;
 }
 ```
@@ -378,6 +387,7 @@ Go ahead and clone [React Counters](https://git.generalassemb.ly/ga-wdi-exercise
 ```bash
 $ git clone https://git.generalassemb.ly/ga-wdi-exercises/react-counters
 $ cd react-counters
+$ npm update
 $ npm install
 $ npm start
 ```
@@ -388,11 +398,10 @@ The first step in creating a React app is to start with a [mock](https://faceboo
 
 ### You Do: Identify Components 
 
+Look at this [deployed version of the application](http://react-counter.surge.sh/) and use React Dev Tools to answer the following questions:
 
-Look at this [deployed version of the application](http://react-counter.surge.sh/) and answer the following questions:
-
-- How many components does this application have?
 - What components is this application built of?
+- How do those components relate to one another?
 
 ### Components
 
@@ -404,8 +413,8 @@ Look at this [deployed version of the application](http://react-counter.surge.sh
 Here we've identified four components on the home page:
   1. The top level component, which we'll call `App`, is boxed in red
   2. The header component, a sub-component of `App`, is boxed in purple. We'll call it `Header`
-  3. The list of counters, also a sub-component of `App`, is boxed in blue. We'll called it `ContainerList`
-  4. An individual container, a sub-component of `ContainerList`, is boxed in green. We'll call it `Counter`
+  3. The list of counters, also a sub-component of `App`, is boxed in blue. We'll called it `CounterList`
+  4. An individual container, a sub-component of `CounterList`, is boxed in green. We'll call it `Counter`
 
 </details>
 
@@ -437,18 +446,16 @@ const data = {
 
 ## Building a Static Version of the App
 
-
 First we will [build a static version](https://facebook.github.io/react/docs/thinking-in-react.html#step-2-build-a-static-version-in-react) of the app passing all of our data by `props`. This makes it much easier to avoid getting bogged down in tricky details of functionality while implementing the visual appearance of the UI.
 
 ### You Do: Set Up the `App` Component and `index.js`
-
 
 Try to get it so that your `App` component displays the number of counters underneath the `Header` component (provided in the starter code).
 
 <details>
 	<summary>Solution</summary>
 	
-`index.js`:
+`src/index.js`:
 
 ```js
 import React from "react";
@@ -463,7 +470,7 @@ const data = {
 ReactDOM.render(<App data={data} />, document.getElementById("root"));
 ```
 	
-`App.js`:
+`src/App.js`:
 
 ```js
 import React, { Component } from "react";
@@ -486,12 +493,12 @@ export default App;
 
 ### You Do: Set Up the `CounterList` and `Counter` Components
 
-
 Your `CounterList` component should take the number of counters as a prop and then render that many versions of your `Counter` component. Your `Counter` component will render `"Counter: 0"` inside of an `<h4>` and two buttons (one for incrementing and one for decrementing).
 
 **Tip:** You can render an array of components! It looks something like this:
 
 ```js
+// This is an example, don't copy-paste this code into your Counters app
 class List extends Component {
   render() {
     let list = [<Item />, <Item />, <Item />];
@@ -510,7 +517,7 @@ class List extends Component {
 import React, { Component } from "react";
 import Counter from "./Counter";
 
-class ContainerList extends Component {
+class CounterList extends Component {
   render() {
     let counters = [];
     for (let index = 0; index < this.props.counter; index++) {
@@ -520,7 +527,7 @@ class ContainerList extends Component {
   }
 }
 
-export default ContainerList;
+export default CounterList;
 ```
 
 `Counter.js`:
@@ -557,10 +564,10 @@ This may include a value(s) that we have not yet included in our code.
 <details>
   <summary>Solution</summary>
 
-For our app to work we need:
-
+For our app to work we need two pieces of data in `state`:
 - `numberOfCounters` (the number of counters to render in our `App` component)
-- `count` (the count of a `Counter` component)
+- `count` (the count of an individual `Counter` component)
+
 </details>
 
 ## Identify Where Your State Should Live 
@@ -587,19 +594,7 @@ class Counter extends Component {
 +    state = {
 +      count: 0
 +    };	
-
-  render() {
-    return (
-      <div className="Counter">
-        <h4>Counter: {this.state.count}</h4>
--        <button>Decrement</button>
-+        <button onClick={this.increaseCount}>Decrement</button>
--        <button>Increment</button>
-+        <button onClick={this.decreaseCount}>Increment</button>
-      </div>
-    );
-  }
-
++
 +  increaseCount = () => {
 +    let count = this.state.count + 1;
 +
@@ -614,6 +609,18 @@ class Counter extends Component {
 +    this.setState({
 +      count
 +    });
++  }
+
+  render() {
+    return (
+      <div className="Counter">
+        <h4>Counter: {this.state.count}</h4>
+-        <button>Decrement</button>
++        <button onClick={this.increaseCount}>Decrement</button>
+-        <button>Increment</button>
++        <button onClick={this.decreaseCount}>Increment</button>
+      </div>
+    );
   }
 }
 
@@ -639,7 +646,6 @@ Our `App` component could be a **container component!**
 
 ### You Do: Update `App`
 
-
 We want to update `App` so that it is tracking the number of counters to render in it's `state`. To do that, we need to update our component.
 
 Make it so that the `App` component is tracking the number of counters (5) inside state and passing that as a prop to the `CounterList` component.
@@ -654,6 +660,7 @@ import Header from "./Header";
 import CounterList from "./CounterList";
 
 class App extends Component {
++  // This is an alternative syntax for defining state that you may see in older React apps.
 +  constructor() {
 +    super();
 +
@@ -661,6 +668,7 @@ class App extends Component {
 +      counters: 5
 +    };
 +  }
+
   render() {
     return (
       <div className="App">
@@ -688,13 +696,13 @@ We can give presentational components behavior by passing callback functions to 
 
 ### You Do: Increase and Decrease the Number of Counters
 
-Define an `increaseCounters()` method and `decreaseCounters()` method on the `App` component (they'll be a lot like the `increaseCount()` and decreaseCount()` methods of our `Counter` component).
+Define an `increaseCounters()` method and `decreaseCounters()` method on the `App` component (they'll be a lot like the `increaseCount()` and `decreaseCount()` methods of our `Counter` component).
 
 Once your two methods are defined, pass them both to the `Header` component as props. What do you need to do inside of `Header` to make it so that when someone clicks on one of the buttons the number of counters increases or decreases?
 
 ## Closing 
 
-If asked, could you explain the differences between props and state? We've now covered the differences between the two as well as how you can use state to control data inside a component and how to update state to display new data to a user.
+If asked, could you explain the differences between props and state? If not, reread this lesson and build out another Counters app, repitition is the key to understanding React. We've now covered the differences between the two as well as how you can use state to control data inside a component and how to update state to display new data to a user.
 
 Defining components and working with props and state (data) constitutes the majority of the work of building a React application.
 
