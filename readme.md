@@ -62,8 +62,9 @@ Just a recap, both *props* and *state* are plain JS objects that hold informatio
 
 Together we are going to grow our blog application with state and props! Yay!
 
+Start by cloning this repo, then follow these instructions:
+
 ```bash
-git clone git@git.generalassemb.ly:sf-sei-1/react-state-and-props.git
 cd react-state-and-props/blog-app
 npm install
 npm start
