@@ -220,19 +220,21 @@ class Welcome extends React.Component {
 
 Notice the use of `this` to call the property name. Can you think of any reason why we have to use `this` keyword here?
 
-
 #### State
 
-Functional components are **stateless** that means they don't have access to state. Although this has changed post React16.8 release, we now have something called as hooks for changing the state in functional component. But for simplicity sake we will say that state cannot be changed in functional component.
+Functional components are **stateless** that means they don't have access to state. 
 
 Class components are **stateful**, state can be accessed and updated.
 
-#### Lifecycle
-> This has also changed post React 16.8 hooks update.
+> Technically, this has changed post React 16.8 release. We now have something called "hooks" for changing the state in a functional component. But for simplicity sake we will say that state cannot be changed in functional component.
 
-Another feature which you cannot use in functional components are lifecycle hooks. The reason is the same like for state, all lifecycle hooks are coming from the `React.Component` which you extend from in class components.
+#### Lifecycle
+
+Another feature which you cannot use in functional components are lifecycle methods. The reason is the same like for state, all lifecycle hooks are coming from the `React.Component` which you extend from in class components.
 
 So if you need lifecycle hooks you should probably use a class component.
+
+> This has also changed post React 16.8 hooks update.
 
 ### Code Along: Adding a state
 
