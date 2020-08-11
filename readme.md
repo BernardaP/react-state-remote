@@ -70,7 +70,7 @@ Together we are going to grow our blog application with state and props! Yay!
 Start by cloning this repo, then follow these instructions:
 
 ```bash
-cd react-state-and-props/blog-app
+cd react-state-remote/blog-app
 npm install
 npm start
 ```
