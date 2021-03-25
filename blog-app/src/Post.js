@@ -9,7 +9,7 @@ function Post(props) {
   ))
 
   return (
-    <div className="Post">
+    <div className="post-page">
       <h1>{ props.title }</h1>
       <p>By: { props.author }</p>
       <hr/>

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './App.css'
 import Hello from './App';
 import Post from './Post';
 
@@ -8,7 +9,7 @@ import postData from './data';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Hello name={"Michael"} age={32} />
+    {/* <Hello name={"Michael"} age={32} /> */}
     <Post 
       title={postData.post.title} 
       author={postData.post.author} 
